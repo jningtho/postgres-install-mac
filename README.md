@@ -1,6 +1,6 @@
 ![mac-brew-psql](https://user-images.githubusercontent.com/4451291/29663349-3e987fd6-88e8-11e7-80df-6757905c92e4.png)
 
-## Postgres 9.6 installation on Mac via Brew.
+## Postgresql 9.6 installation on Mac via Brew.
 
 Environment:
 - MacOS Sierra: 10.12.6
