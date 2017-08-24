@@ -64,6 +64,8 @@ LOG:  database system is ready to accept connections
  ~/ [master*]    brew services start postgresql
 ==> Successfully started `postgresql` (label: homebrew.mxcl.postgresql)
 
+#Stop Service: $ brew services stop postgresql
+
 #Checking the process, we can also verify the cluster instance is up and running under the current user.
 
  ~/ [master*] ps -efw |grep postgres
