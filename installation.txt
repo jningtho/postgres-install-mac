@@ -1,0 +1,86 @@
+#Guide: Postgresql Installation on Mac.
+
+#I was in the process of installing Postgresql on my mac but couldn't find any step-by step process without having to set a variable path. 
+#After looking around, came across few docs and compiled them to make it as easy as possible.
+#Brew is the easiest and simplest process and got this working in no time.
+
+Environment:
+- MacOS Sierra 10.12.6
+- Postgresql  9.6.4
+- Homebrew    1.3.1
+- Shell    ~/zsh  ~/.zshrc
+
+# ** Current status: Assuming you already have the current Brew installed, here are the steps.
+
+#1. Let's get postgres via brew.
+
+ ~/ [master*] brew install postgresql
+Updating Homebrew...
+==> Auto-updated Homebrew!
+Updated 1 tap (homebrew/core).
+==> Updated Formulae
+angular-cli         ansible ✔           btfs                get-flash-videos    gofabric8           passenger
+
+==> Downloading https://homebrew.bintray.com/bottles/postgresql-9.6.4.sierra.bottle.tar.gz
+######################################################################## 100.0%
+==> Pouring postgresql-9.6.4.sierra.bottle.tar.gz
+==> /usr/local/Cellar/postgresql/9.6.4/bin/initdb /usr/local/var/postgres
+==> Caveats
+If builds of PostgreSQL 9 are failing and you have version 8.x installed,
+you may need to remove the previous version first. See:
+  https://github.com/Homebrew/legacy-homebrew/issues/2510
+
+To migrate existing data from a previous major version (pre-9.0) of PostgreSQL, see:
+  https://www.postgresql.org/docs/9.6/static/upgrading.html
+
+To migrate existing data from a previous minor version (9.0-9.5) of PostgreSQL, see:
+  https://www.postgresql.org/docs/9.6/static/pgupgrade.html
+
+  You will need your previous PostgreSQL installation from brew to perform `pg_upgrade`.
+  Do not run `brew cleanup postgresql` until you have performed the migration.
+
+To have launchd start postgresql now and restart at login:
+  brew services start postgresql
+Or, if you don't want/need a background service you can just run:
+  pg_ctl -D /usr/local/var/postgres start
+==> Summary
+🍺  /usr/local/Cellar/postgresql/9.6.4: 3,264 files, 36.6MB
+
+# You can confirm the installation path
+ ~/ [master*] which postgres
+/usr/local/bin/postgres
+
+#2. Let's start the postgres Server
+
+ ~/ [master*] pg_ctl -D /usr/local/var/postgres start
+server starting
+LOG:  database system was shut down at 2017-08-24 13:54:35 IST                                                          
+LOG:  MultiXact member wraparound protections are now enabled
+LOG:  autovacuum launcher started
+LOG:  database system is ready to accept connections
+
+#You can also start the service using the following brew cmd
+
+ ~/ [master*]    brew services start postgresql
+==> Successfully started `postgresql` (label: homebrew.mxcl.postgresql)
+
+#Checking the process, we can also verify the cluster instance is up and running under the current user.
+
+ ~/ [master*] ps -efw |grep postgres
+  501 73226 73220   0  1:55PM ??         0:00.00 postgres: checkpointer process     
+  501 73227 73220   0  1:55PM ??         0:00.02 postgres: writer process     
+  501 73228 73220   0  1:55PM ??         0:00.00 postgres: wal writer process     
+  501 73229 73220   0  1:55PM ??         0:00.00 postgres: autovacuum launcher process     
+  501 73230 73220   0  1:55PM ??         0:00.00 postgres: stats collector process   
+
+# create your database *xdlabdb is my db
+ ~/ [master*] createdb xdlabdb
+
+ ~/ [master*] psql xdlabdb
+psql (9.6.4)
+Type "help" for help.
+
+## You are all set to play around and get rocking ..
+
+    
+
